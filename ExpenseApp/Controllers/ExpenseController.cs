@@ -19,23 +19,15 @@ namespace ExpenseApp.Controllers
         }
 
 
-     
-
         public IActionResult Index(int id)
         {
             var expensefromDb = _expenseDatabase.GetExpenses(id);
-
             var expense = new ExpenseDetailViewModel()
+            foreach (var exp in expensefromDb)
             {
-
-               
-
-                Description = expenseFromDb.Description,
-
-                Date = expenseFromDb.Date,
-
-                Amount = expenseFromDb.Amount,
-
+                Description = exp.Description;
+                Date = exp.Date;
+                Amount = exp.Amount;
             };
 
             return View(expense);

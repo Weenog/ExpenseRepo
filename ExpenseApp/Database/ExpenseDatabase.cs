@@ -1,4 +1,5 @@
-﻿using ExpenseApp.Domain;
+﻿
+using ExpenseApp.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 namespace ExpenseApp.Database
 
 {
+  
     public interface IExpenseDatabase
     {
         Expense Insert(Expense Expense);
