@@ -13,45 +13,30 @@ namespace ExpenseApp.Database
         IEnumerable<Expense> GetExpenses();
         Expense GetExpenses(int id);
         void Delete(int id);
-
         void Update(int id, Expense Expense);
-
     }
 
 
 
     public class ExpenseDatabase : IExpenseDatabase
-
     {
-
         private int _counter;
-
         private readonly List<Expense> _Expense;
 
 
-
         public ExpenseDatabase()
-
         {
-
             if (_Expense == null)
-
             {
-
                 _Expense = new List<Expense>();
-
             }
-
         }
 
 
 
         public Expense GetExpenses(int id)
-
         {
-
             return _Expense.FirstOrDefault(x => x.Id == id);
-
         }
 
 

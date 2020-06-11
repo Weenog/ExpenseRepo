@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ExpenseApp.Database;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseApp.Controllers
@@ -10,11 +11,11 @@ namespace ExpenseApp.Controllers
     {
        
         private IExpenseDatabase _expenseDatabase;
-        private object _expensedatabase;
+      
 
-        public ExpenseController(ExpenseDatabase expenseDatabase)
+        public ExpenseController(IExpenseDatabase ExpenseDatabase)
         {
-            _expenseDatabase = expenseDatabase;
+            _expenseDatabase = ExpenseDatabase;
         }
 
 
@@ -22,7 +23,7 @@ namespace ExpenseApp.Controllers
 
         public IActionResult Index(int id)
         {
-            var expensefromdb = _expensedatabase.getexpense(id);
+            var expensefromDb = _expenseDatabase.GetExpenses(id);
 
             var expense = new ExpenseDetailViewModel()
             {
