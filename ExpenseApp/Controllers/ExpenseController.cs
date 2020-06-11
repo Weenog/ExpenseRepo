@@ -8,21 +8,19 @@ namespace ExpenseApp.Controllers
 {
     public class ExpenseController : Controller
     {
-        private object contactFromDb;
-        private IExpenseDatabase _contactDatabase;
+       
+        private IExpenseDatabase _expenseDatabase;
+        private object _expensedatabase;
 
-        public IActionResult Index()
+        public ExpenseController(ExpenseDatabase expenseDatabase)
         {
-            return View();
-        }
-
-        public ExpenseController(IExpenseDatabase expenses)
-        {
-            _contactDatabase = expenses;
+            _expenseDatabase = expenseDatabase;
         }
 
 
-        public IActionResult Detail(int id)
+     
+
+        public IActionResult Index(int id)
         {
             var expensefromdb = _expensedatabase.getexpense(id);
 
@@ -31,11 +29,11 @@ namespace ExpenseApp.Controllers
 
                
 
-                Description = contactFromDb.Description,
+                Description = expenseFromDb.Description,
 
-                Date = contactFromDb.Date,
+                Date = expenseFromDb.Date,
 
-                Amount = contactFromDb.Amount,
+                Amount = expenseFromDb.Amount,
 
             };
 
