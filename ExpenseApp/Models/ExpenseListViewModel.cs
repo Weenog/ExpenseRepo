@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ExpenseApp.Models
 {
-    public class ExpenseCreateViewModel
+    public class ExpenseListViewModel
     {
     }
 }
