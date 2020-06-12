@@ -103,6 +103,21 @@ namespace ExpenseApp.Controllers
             _expenseDatabase.Update(vm.Id, newExpense);
             return (RedirectToAction("Index"));
         }
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            Expense expenseToDelete = _expenseDatabase.GetExpenses(id);
+            ExpenseDeleteViewModel dvm = new ExpenseDeleteViewModel()
+            {
+                Id = expenseToDelete.Id,
+                Amount = expenseToDelete.Id,
+                Description = expenseToDelete.Description,
+                DateTime = expenseToDelete.Date
+            };
+        
+        
+        }
+
 
     }
 }
