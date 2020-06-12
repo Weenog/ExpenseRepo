@@ -73,15 +73,12 @@ namespace ExpenseApp.Controllers
         {
 
             Expense expenseToEdit = _expenseDatabase.GetExpenses(id);
-
             ExpenseEditViewModel evm = new ExpenseEditViewModel()
-
             {
                 Amount = (decimal)expenseToEdit.Amount,
                 Description = (string)expenseToEdit.Description,
                 Date = (DateTime)expenseToEdit.Date
             };
-
             return View(evm);
 
         }
@@ -110,16 +107,25 @@ namespace ExpenseApp.Controllers
             ExpenseDeleteViewModel dvm = new ExpenseDeleteViewModel()
             {
                 Id = expenseToDelete.Id,
-                Amount = expenseToDelete.Id,
-                Description = expenseToDelete.Description,
-                DateTime = expenseToDelete.Date
+                Amount = (decimal)expenseToDelete.Amount,
+                Description = (string)expenseToDelete.Description,
+                Date = (DateTime)expenseToDelete.Date
             };
-        
-        
+
+            return View(dvm);
         }
-
-
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public IActionResult ConfirmDelete(int id)
+        {
+            _expenseDatabase.Delete(id);
+            return (RedirectToAction("Index"));
+        }
     }
 }
+
+
+   
+
 
 
