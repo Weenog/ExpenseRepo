@@ -41,7 +41,6 @@ namespace ExpenseApp.Controllers
             }
 
             return View(XpList);
-
         }
 
 
@@ -75,7 +74,7 @@ namespace ExpenseApp.Controllers
 
             Expense expenseToEdit = _expenseDatabase.GetExpenses(id);
 
-            ExpenseEditViewModel vm = new ExpenseEditViewModel()
+            ExpenseEditViewModel evm = new ExpenseEditViewModel()
 
             {
                 Amount = (decimal)expenseToEdit.Amount,
@@ -83,9 +82,28 @@ namespace ExpenseApp.Controllers
                 Date = (DateTime)expenseToEdit.Date
             };
 
-            return View(vm);
+            return View(evm);
+
         }
-         
+
+        [ValidateAntiForgeryToken]
+
+        [HttpPost]
+
+        public IActionResult Edit(ExpenseEditViewModel vm)
+
+        {
+
+            Expense newExpense = new Expense()
+            {
+                Amount = vm.Amount,
+                Description = vm.Description,
+                Date = vm.Date
+            };
+            _expenseDatabase.Update(vm.Id, newExpense);
+            return (RedirectToAction("Index"));
+        }
+
     }
 }
 
