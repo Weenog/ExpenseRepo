@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ExpenseApp.Database;
+using ExpenseApp.Domain;
+using ExpenseApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseApp.Controllers
@@ -18,17 +20,23 @@ namespace ExpenseApp.Controllers
             _expenseDatabase = ExpenseDatabase;
         }
 
-
+        [HttpGet]
         public IActionResult Index(int id)
         {
-            var expensefromDb = _expenseDatabase.GetExpenses(id);
-            var expense = new ExpenseDetailViewModel()
-            foreach (var exp in expensefromDb)
+
+            List<ExpenseListViewModel> XpList = new List<ExpenseListViewModel>();
+            IEnumerable<Expense> expenses = _expenseDatabase.GetExpenses().OrderBy(x =>x.Date);
+            var expense = new ExpenseDetailViewModel();
+            foreach (var expense in expenses)
             {
-                Description = exp.Description;
-                Date = exp.Date;
-                Amount = exp.Amount;
-            };
+                ExpenseListViewModel Xp = new ExpenseListViewModel() {
+                    Id = expense.Id,
+                    Description = (string)expense.Description,
+                    Date = (DateTime)expense.Date,
+                    Amount = (decimal)expense.Amount
+                };
+                XpList.Add(Xp);
+            }
 
             return View(expense);
 

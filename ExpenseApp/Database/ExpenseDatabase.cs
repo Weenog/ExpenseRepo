@@ -44,69 +44,42 @@ namespace ExpenseApp.Database
 
 
         public IEnumerable<Expense> GetExpenses()
-
         {
-
             return _Expense;
-
         }
 
 
 
         public Expense Insert(Expense Expense)
-
         {
-
             _counter++;
-
             Expense.Id = _counter;
-
             _Expense.Add(Expense);
-
             return Expense;
-
         }
 
 
 
         public void Delete(int id)
-
         {
-
             var Expense = _Expense.SingleOrDefault(x => x.Id == id);
-
             if (Expense != null)
-
             {
-
                 _Expense.Remove(Expense);
-
             }
-
         }
 
 
 
         public void Update(int id, Expense updatedExpense)
-
         {
-
             var Expense = _Expense.SingleOrDefault(x => x.Id == id);
-
             if (Expense != null)
-
             {
-
                 Expense.Amount = updatedExpense.Amount;
-
                 Expense.Date = updatedExpense.Date;
-
                 Expense.Description = updatedExpense.Description;
-
             }
-
         }
-
     }
-
 }

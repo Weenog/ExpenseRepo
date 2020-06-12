@@ -1,13 +1,15 @@
-﻿namespace ExpenseApp.Controllers
-{
-    internal class ExpenseDetailViewModel
-    {
-        public ExpenseDetailViewModel()
-        {
-        }
+﻿using System;
 
-        public object Description { get; set; }
-        public object Date { get; set; }
-        public object Amount { get; set; }
+namespace ExpenseApp.Controllers
+{
+    public class ExpenseDetailViewModel
+    {
+       
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public DateTime Date { get; set; }
+        public decimal Amount { get; set; }
     }
+
+    
 }
