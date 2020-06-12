@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ExpenseApp.Models
 {
-    public class BankCreateViewModel
+    public class ExpenseCreateViewModel
 
     {
         public int Id { get; set; }
