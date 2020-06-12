@@ -15,6 +15,7 @@ namespace ExpenseApp.Controllers
         private IExpenseDatabase _expenseDatabase;
 
 
+
         public ExpenseController(IExpenseDatabase ExpenseDatabase)
         {
             _expenseDatabase = ExpenseDatabase;
@@ -69,20 +70,22 @@ namespace ExpenseApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Detail(int id)
+        public IActionResult Edit(int id)
         {
+
             Expense expenseToEdit = _expenseDatabase.GetExpenses(id);
+
             ExpenseEditViewModel vm = new ExpenseEditViewModel()
+
             {
                 Amount = (decimal)expenseToEdit.Amount,
                 Description = (string)expenseToEdit.Description,
                 Date = (DateTime)expenseToEdit.Date
             };
 
-
             return View(vm);
-
         }
+         
     }
 }
 
