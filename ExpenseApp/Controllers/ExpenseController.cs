@@ -27,18 +27,18 @@ namespace ExpenseApp.Controllers
             List<ExpenseListViewModel> XpList = new List<ExpenseListViewModel>();
             IEnumerable<Expense> expenses = _expenseDatabase.GetExpenses().OrderBy(x =>x.Date);
             var expense = new ExpenseDetailViewModel();
-            foreach (var expense in expenses)
+            foreach (var thing in expenses)
             {
                 ExpenseListViewModel Xp = new ExpenseListViewModel() {
-                    Id = expense.Id,
-                    Description = (string)expense.Description,
-                    Date = (DateTime)expense.Date,
-                    Amount = (decimal)expense.Amount
+                    Id = thing.Id,
+                    Description = (string)thing.Description,
+                    Date = (DateTime)thing.Date,
+                    Amount = (decimal)thing.Amount
                 };
                 XpList.Add(Xp);
             }
 
-            return View(expense);
+            return View(XpList);
 
         }
     }
