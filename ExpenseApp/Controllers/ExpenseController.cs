@@ -26,7 +26,7 @@ namespace ExpenseApp.Controllers
 
             List<ExpenseListViewModel> XpList = new List<ExpenseListViewModel>();
             IEnumerable<Expense> expenses = _expenseDatabase.GetExpenses().OrderBy(x => x.Date);
-            var expense = new ExpenseDetailViewModel();
+            var expense = new ExpenseEditViewModel();
             foreach (var thing in expenses)
             {
                 ExpenseListViewModel Xp = new ExpenseListViewModel()
@@ -72,7 +72,7 @@ namespace ExpenseApp.Controllers
         public IActionResult Detail(int id)
         {
             Expense expenseToEdit = _expenseDatabase.GetExpenses(id);
-            ExpenseDetailViewModel vm = new ExpenseDetailViewModel()
+            ExpenseEditViewModel vm = new ExpenseEditViewModel()
             {
                 Amount = (decimal)expenseToEdit.Amount,
                 Description = (string)expenseToEdit.Description,

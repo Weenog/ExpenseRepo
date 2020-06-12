@@ -1,16 +1,10 @@
 ﻿
-@model ExpenseCreateViewModel
+@model ExpenseEditViewModel;
 
-
-<br />
-<strong>This is the create page.</strong>
-
-
-
-<form asp-controller="Expense" asp-action="Create" method="post">
+<form asp-controller="Expense" asp--action="edit" method="post">
 
     <div class="form-group">
-        <label asp-for="Description"></label>
+        <label asp-for=" Description"></label>
         <input asp-for="Description" />
     </div>
 
@@ -26,10 +20,5 @@
         <input asp-for="Amount" type="text" class="form-control">
     </div>
 
-    <button class="btn-success" type="submit">Create</button>
-
+    <button class="btn-success" type="submit">Save Changes</button>
 </form>
-
-
-
-
