@@ -74,15 +74,16 @@ namespace ExpenseApp.Controllers
             Expense expenseToEdit = _expenseDatabase.GetExpenses(id);
             ExpenseDetailViewModel vm = new ExpenseDetailViewModel()
             {
-                Amount = expenseToEdit.Amount,
-                Description = expenseToEdit.Description,
-                Date = expenseToEdit.Date
+                Amount = (decimal)expenseToEdit.Amount,
+                Description = (string)expenseToEdit.Description,
+                Date = (DateTime)expenseToEdit.Date
             };
 
 
             return View(vm);
 
         }
+    }
 }
 
 
