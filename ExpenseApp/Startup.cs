@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace ExpenseApp
 {
@@ -26,6 +27,8 @@ namespace ExpenseApp
         {
             services.AddControllersWithViews();
             services.AddSingleton<IExpenseDatabase, ExpenseDatabase>();
+
+            //services.AddDBContext<ExpenseContext>(Options => Options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ExpenseDatabase;Trusted_Connection=True;MultipleActionResultSets=)); <------for Database
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

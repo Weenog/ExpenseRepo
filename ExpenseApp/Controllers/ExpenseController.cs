@@ -33,7 +33,7 @@ namespace ExpenseApp.Controllers
                 ExpenseListViewModel Xp = new ExpenseListViewModel()
                 {
                     Id = thing.Id,
-                    Category = expense.Category,
+                    Category = thing.Category,
                     Description = (string)thing.Description,
                     Date = (DateTime)thing.Date,
                     Amount = (decimal)thing.Amount
