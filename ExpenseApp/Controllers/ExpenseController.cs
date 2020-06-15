@@ -33,6 +33,7 @@ namespace ExpenseApp.Controllers
                 ExpenseListViewModel Xp = new ExpenseListViewModel()
                 {
                     Id = thing.Id,
+                    Category = expense.Category,
                     Description = (string)thing.Description,
                     Date = (DateTime)thing.Date,
                     Amount = (decimal)thing.Amount
@@ -60,6 +61,7 @@ namespace ExpenseApp.Controllers
             Expense newExpense = new Expense()
             {
                 Amount = cvm.Amount,
+                Category = cvm.Category,
                 Description = cvm.Description,
                 Date = cvm.Date
             };
@@ -76,6 +78,7 @@ namespace ExpenseApp.Controllers
             ExpenseEditViewModel evm = new ExpenseEditViewModel()
             {
                 Amount = (decimal)expenseToEdit.Amount,
+                Category = expenseToEdit.Category,
                 Description = (string)expenseToEdit.Description,
                 Date = (DateTime)expenseToEdit.Date
             };
@@ -94,6 +97,7 @@ namespace ExpenseApp.Controllers
             Expense newExpense = new Expense()
             {
                 Amount = vm.Amount,
+                Category = vm.Category,
                 Description = vm.Description,
                 Date = vm.Date
             };

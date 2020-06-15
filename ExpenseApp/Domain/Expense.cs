@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseApp.Domain
 {
@@ -11,5 +13,6 @@ namespace ExpenseApp.Domain
         public object Amount { get; set; }
         public object Description { get; set; }
         public object Date { get; set; }
+        public Category Category {get; set;} 
     }
 }

@@ -1,6 +1,13 @@
 ﻿
 @model ExpenseEditViewModel;
 
+@{
+
+    var CategoryOptions = Enum.GetValues(typeof(ExpenseApp.Domain.Category));
+
+}
+
+
 <form asp-controller="Expense" asp--action="Edit" method="post">
 
     <div class="form-group">
@@ -18,6 +25,21 @@
             <span class="input-group-text">€ Amount</span>
         </div>
         <input asp-for="Amount" type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Category"></label>
+        <select asp-for="Category">
+            @{
+                foreach (var Category in CategoryOptions)
+                {
+                    <option>@Category</option>
+                }
+            }
+
+
+        </select>
+
     </div>
 
     <button class="btn-success" type="submit">Save Changes</button>
