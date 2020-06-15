@@ -7,6 +7,7 @@ namespace ExpenseApp.Models
 {
     public class ExpenseDeleteViewModel
     {
+
         public int Id { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
