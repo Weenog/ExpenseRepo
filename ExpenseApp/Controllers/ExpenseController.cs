@@ -13,12 +13,13 @@ namespace ExpenseApp.Controllers
     {
 
         private IExpenseDatabase _expenseDatabase;
-
+        //private readonly IPhotoService _photoService;
 
 
         public ExpenseController(IExpenseDatabase ExpenseDatabase)
         {
             _expenseDatabase = ExpenseDatabase;
+            //_photoService = photoService;
         }
 
         [HttpGet]
@@ -37,6 +38,7 @@ namespace ExpenseApp.Controllers
                     Description = (string)thing.Description,
                     Date = (DateTime)thing.Date,
                     Amount = (decimal)thing.Amount
+                    //PhotoUrl = expense.PhotoUrl
                 };
                 XpList.Add(Xp);
             }
@@ -65,11 +67,12 @@ namespace ExpenseApp.Controllers
                 Description = cvm.Description,
                 Date = cvm.Date
             };
-
+            //_photoService.AssignPicToExpense(newExpense);
             _expenseDatabase.Insert(newExpense);
             return RedirectToAction("Index");
         }
 
+        [ValidateAntiForgeryToken]
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -87,7 +90,6 @@ namespace ExpenseApp.Controllers
         }
 
         [ValidateAntiForgeryToken]
-
         [HttpPost]
 
         public IActionResult Edit(ExpenseEditViewModel vm)

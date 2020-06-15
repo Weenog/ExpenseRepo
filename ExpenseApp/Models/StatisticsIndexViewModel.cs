@@ -20,6 +20,7 @@ namespace ExpenseApp.Models
         public GroupedExpenses MostExpensive { get; set; }
         public GroupedExpenses LeastExpensive { get; set; }
 
+
     }
 
 }

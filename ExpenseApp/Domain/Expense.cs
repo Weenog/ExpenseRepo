@@ -10,9 +10,9 @@ namespace ExpenseApp.Domain
     public class Expense
     {
         public int Id { get; set; }
-        public object Amount { get; set; }
-        public object Description { get; set; }
-        public object Date { get; set; }
+        public decimal Amount { get; set; }
+        public string Description { get; set; }
+        public DateTime Date { get; set; }
         public Category Category {get; set;} 
     }
 }
