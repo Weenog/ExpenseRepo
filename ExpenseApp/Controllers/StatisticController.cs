@@ -7,22 +7,25 @@ using System.Threading.Tasks;
 using ExpenseApp.Domain;
 using ExpenseApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseApp.Controllers
 {
     public class StatisticsController : Controller
     {
-        private readonly IExpenseDatabase _expenseDatabase;
-        private readonly IEnumerable<Expense> _expenses;
+       
+        //private readonly IEnumerable<Expense> _expenses;
+        private readonly ExpenseDbContext _expenseDatabase;
 
-        public StatisticsController(IExpenseDatabase expenseDatabase)
+        public StatisticsController(ExpenseDbContext expenseDatabase)
         {
             _expenseDatabase = expenseDatabase;
-            _expenses = _expenseDatabase.GetExpenses();
+            //_expenses = _expenseDatabase.GetExpenses();
         }
         [HttpGet]
-        public IActionResult Index()
+        public async Task <IActionResult> Index()
         {
+            IEnumerable<Expense> _expenses = await _expenseDatabase.Expenses.ToListAsync();
             StatisticsIndexViewModel vm = new StatisticsIndexViewModel()
             {
               Expenses = _expenses,

@@ -8,20 +8,21 @@ using ExpenseApp.Models;
 using ExpenseApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseApp.Controllers
 {
     public class ExpenseController : Controller
     {
 
-        private readonly IExpenseDatabase _dbContext;
+        private readonly ExpenseDbContext _dbContext;
         private readonly IPhotoService _photoService;
 
 
         public ExpenseController(IPhotoService photoService, ExpenseDbContext dbContext)
         {
             _photoService = photoService;
-            _dbContext = (IExpenseDatabase)dbContext;
+            _dbContext = dbContext;
         }
 
         [HttpGet]
@@ -71,15 +72,15 @@ namespace ExpenseApp.Controllers
                 Category = cvm.Category,
                 Description = cvm.Description,
                 Date = cvm.Date,
-                PhotoUrl= cmv.PhotoUrl
+                PhotoUrl= cvm.PhotoUrl
             };
             if (String.IsNullOrEmpty(newExpense.PhotoUrl))
             {
                 _photoService.AssignPicToExpense(newExpense);
             }
             
-            _expenseDatabase.Add(newExpense);
-            await_dbContext.SaveChangesAsync();
+            _dbContext.Add(newExpense);
+            await _dbContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
