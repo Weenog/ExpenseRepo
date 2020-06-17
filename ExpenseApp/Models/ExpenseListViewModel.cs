@@ -15,6 +15,7 @@ namespace ExpenseApp.Models
         public decimal Amount { get; set; }
         public Category Category { get; set; }
         public string PhotoUrl { get; set; }
+       
 
     }
 }

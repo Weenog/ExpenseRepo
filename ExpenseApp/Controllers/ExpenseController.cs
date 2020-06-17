@@ -89,14 +89,29 @@ namespace ExpenseApp.Controllers
         public async Task<IActionResult> Edit(int id)
         {
 
-            Expense expenseToEdit = await _dbContext.Expenses.FindAsync(id);
-            ExpenseEditViewModel evm = new ExpenseEditViewModel()
+            Expense expenseToEdit = await _dbContext.Expenses.Include(x => x.Category).FirstOrDefaultAsync(x => x.Id == id);
+            var categories = await _dbContext.Categories.ToListAsync();
+            ExpenseEditViewModel evm = new ExpenseEditViewModel();
+
+            foreach (Category category in categories)
             {
-                Amount = (decimal)expenseToEdit.Amount,
-                Category = expenseToEdit.Category,
-                Description = (string)expenseToEdit.Description,
-                Date = (DateTime)expenseToEdit.Date
-            };
+                evm.Category.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
+
+                {
+
+                    Value = category.Id.ToString(),
+
+                    Text = category.Name
+
+                });
+
+            }
+
+            evm.Amount = (decimal)expenseToEdit.Amount;
+            evm.CategoryId = expenseToEdit.Category.Id;
+            evm.Description = (string)expenseToEdit.Description;
+            evm.Date = (DateTime)expenseToEdit.Date;
+            
             return View(evm);
 
         }
@@ -109,7 +124,7 @@ namespace ExpenseApp.Controllers
 
             Expense changedExpense = await _dbContext.Expenses.FindAsync(id);
             changedExpense.Amount = vm.Amount;
-            changedExpense.Category = vm.Category;
+            changedExpense.CategoryId = vm.CategoryId;
             changedExpense.Description = vm.Description;
             changedExpense.Date = vm.Date;
 
