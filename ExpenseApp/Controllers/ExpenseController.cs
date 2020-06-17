@@ -5,31 +5,36 @@ using System.Threading.Tasks;
 using ExpenseApp.Database;
 using ExpenseApp.Domain;
 using ExpenseApp.Models;
+using ExpenseApp.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace ExpenseApp.Controllers
 {
     public class ExpenseController : Controller
     {
 
-        private IExpenseDatabase _expenseDatabase;
-        //private readonly IPhotoService _photoService;
+        private readonly IExpenseDatabase _dbContext;
+        private readonly IPhotoService _photoService;
 
 
-        public ExpenseController(IExpenseDatabase ExpenseDatabase)
+        public ExpenseController(IPhotoService photoService, ExpenseDbContext dbContext)
         {
-            _expenseDatabase = ExpenseDatabase;
-            //_photoService = photoService;
+            _photoService = photoService;
+            _dbContext = (IExpenseDatabase)dbContext;
         }
 
         [HttpGet]
-        public IActionResult Index(int id)
+        public async Task<IActionResult> IndexAsync(int id)
         {
 
             List<ExpenseListViewModel> XpList = new List<ExpenseListViewModel>();
-            IEnumerable<Expense> expenses = _expenseDatabase.GetExpenses().OrderBy(x => x.Date);
+
+            //IEnumerable<Expense> expenses = _expenseDatabase.GetExpenses().OrderBy(x => x.Date);
+            IEnumerable<Expense> expenses = await _dbContext.Expenses.ToListAsync();
+            IEnumerable<Expense> sortedExpenses = expenses.OrderBy(x => x.Date);
             var expense = new ExpenseEditViewModel();
-            foreach (var thing in expenses)
+            foreach (var thing in sortedExpenses)
             {
                 ExpenseListViewModel Xp = new ExpenseListViewModel()
                 {
@@ -37,8 +42,8 @@ namespace ExpenseApp.Controllers
                     Category = thing.Category,
                     Description = (string)thing.Description,
                     Date = (DateTime)thing.Date,
-                    Amount = (decimal)thing.Amount
-                    //PhotoUrl = expense.PhotoUrl
+                    Amount = (decimal)thing.Amount,
+                    PhotoUrl = thing.PhotoUrl
                 };
                 XpList.Add(Xp);
             }
@@ -58,26 +63,32 @@ namespace ExpenseApp.Controllers
         [ValidateAntiForgeryToken]
         [HttpPost]
 
-        public IActionResult Create(ExpenseCreateViewModel cvm)
+        public  async Task<IActionResult> Create(ExpenseCreateViewModel cvm)
         {
             Expense newExpense = new Expense()
             {
                 Amount = cvm.Amount,
                 Category = cvm.Category,
                 Description = cvm.Description,
-                Date = cvm.Date
+                Date = cvm.Date,
+                PhotoUrl= cmv.PhotoUrl
             };
-            //_photoService.AssignPicToExpense(newExpense);
-            _expenseDatabase.Insert(newExpense);
+            if (String.IsNullOrEmpty(newExpense.PhotoUrl))
+            {
+                _photoService.AssignPicToExpense(newExpense);
+            }
+            
+            _expenseDatabase.Add(newExpense);
+            await_dbContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
         [ValidateAntiForgeryToken]
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
 
-            Expense expenseToEdit = _expenseDatabase.GetExpenses(id);
+            Expense expenseToEdit = await _dbContext.Expenses.FindAsync(id);
             ExpenseEditViewModel evm = new ExpenseEditViewModel()
             {
                 Amount = (decimal)expenseToEdit.Amount,
@@ -92,24 +103,24 @@ namespace ExpenseApp.Controllers
         [ValidateAntiForgeryToken]
         [HttpPost]
 
-        public IActionResult Edit(ExpenseEditViewModel vm)
-
+        public async Task<IActionResult> Edit(int id, ExpenseEditViewModel vm)
         {
 
-            Expense newExpense = new Expense()
-            {
-                Amount = vm.Amount,
-                Category = vm.Category,
-                Description = vm.Description,
-                Date = vm.Date
-            };
-            _expenseDatabase.Update(vm.Id, newExpense);
+            Expense changedExpense = await _dbContext.Expenses.FindAsync(id);
+            changedExpense.Amount = vm.Amount;
+            changedExpense.Category = vm.Category;
+            changedExpense.Description = vm.Description;
+            changedExpense.Date = vm.Date;
+
+            _dbContext.Expenses.Update(changedExpense);
+            await _dbContext.SaveChangesAsync();
             return (RedirectToAction("Index"));
         }
-        [HttpGet]
-        public IActionResult Delete(int id)
+
+            [HttpGet]
+        public async Task<IActionResult> Delete(int id)
         {
-            Expense expenseToDelete = _expenseDatabase.GetExpenses(id);
+            Expense expenseToDelete = await _dbContext.Expenses.FindAsync(id);
             ExpenseDeleteViewModel dvm = new ExpenseDeleteViewModel()
             {
                 Id = expenseToDelete.Id,
@@ -122,9 +133,10 @@ namespace ExpenseApp.Controllers
         }
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult ConfirmDelete(int id)
+        public async Task<IActionResult> ConfirmDelete(int id)
         {
-            _expenseDatabase.Delete(id);
+            _dbContext.Expenses.Remove(_dbContext.Expenses.Find(id));
+            await _dbContext.SaveChangesAsync();
             return (RedirectToAction("Index"));
         }
     }

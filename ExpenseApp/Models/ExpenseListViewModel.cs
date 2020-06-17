@@ -14,7 +14,7 @@ namespace ExpenseApp.Models
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
         public Category Category { get; set; }
-        //public string PhotoUrl { get; set; }
+        public string PhotoUrl { get; set; }
 
     }
 }

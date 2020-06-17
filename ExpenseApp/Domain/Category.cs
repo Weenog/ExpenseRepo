@@ -10,5 +10,10 @@ namespace ExpenseApp.Domain
         Food,
         Recreation,
         Bills,
+        Household,
+        Holiday,
+        UtilityBill,
+        Gift,
+        Car,
     }
 }
