@@ -31,7 +31,7 @@ namespace ExpenseApp.Controllers
 
             List<ExpenseListViewModel> XpList = new List<ExpenseListViewModel>();
 
-            //IEnumerable<Expense> expenses = _expenseDatabase.GetExpenses().OrderBy(x => x.Date);
+
             IEnumerable<Expense> expenses = await _dbContext.Expenses.ToListAsync();
             IEnumerable<Expense> sortedExpenses = expenses.OrderBy(x => x.Date);
             var expense = new ExpenseEditViewModel();

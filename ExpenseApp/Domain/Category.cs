@@ -5,15 +5,21 @@ using System.Threading.Tasks;
 
 namespace ExpenseApp.Domain
 {
-    public enum Category
+    //public enum Category
+    //{
+    //    Food,
+    //    Recreation,
+    //    Bills,
+    //    Household,
+    //    Holiday,
+    //    UtilityBill,
+    //    Gift,
+    //    Car,
+    //}
+    public class Category
     {
-        Food,
-        Recreation,
-        Bills,
-        Household,
-        Holiday,
-        UtilityBill,
-        Gift,
-        Car,
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }
+

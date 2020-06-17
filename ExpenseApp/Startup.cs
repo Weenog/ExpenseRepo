@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ExpenseApp.Database;
+using ExpenseApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,7 @@ namespace ExpenseApp
         {
             services.AddControllersWithViews();
             services.AddDbContext<ExpenseDbContext>(Options => Options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ExpenseDatabase;Trusted_Connection=True;"));
+            services.AddTransient<IPhotoService, PhotoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -47,16 +47,8 @@ namespace ExpenseApp.Services
         public void AssignPicToExpense(Expense expense)
         {
             string pathToPicture = string.Empty;
-            if (expense.Category == Category.Household || expense.Category == Category.Holiday)
-            {
-                pathToPicture = expense.Category.ToString().ToLower() + ".png";
-            }
-
-            else
-            {
-                pathToPicture = expense.Category.ToString().ToLower() + ".jpg";
-            }
-
+            pathToPicture = expense.Category.ToString().ToLower() + ".png";
+          
 
             expense.PhotoUrl = "/expense-pics/" + pathToPicture;
         }
