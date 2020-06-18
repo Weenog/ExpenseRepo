@@ -133,7 +133,7 @@ namespace ExpenseApp.Controllers
         public async Task<IActionResult> Edit(int id, ExpenseEditViewModel vm)
         {
 
-            Expense changedExpense = await _dbContext.Expenses.FindAsync(id);
+            Expense changedExpense = await _dbContext.Expenses.Include(x => x.Category).FirstOrDefaultAsync(x => x.Id == id);
             changedExpense.Amount = vm.Amount;
             changedExpense.CategoryId = vm.CategoryId;
             changedExpense.Description = vm.Description;

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnvironment;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -35,9 +37,14 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        <div class="parent">
+            <environment exclude="Production">
+                <div class="ribbon"><span>@_hostEnvironment.EnvironmentName</span>
+            </environment>
+        </div>
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
     </div>
 
     <footer class="border-top footer text-muted">

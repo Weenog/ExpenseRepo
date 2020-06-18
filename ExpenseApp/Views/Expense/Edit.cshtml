@@ -1,12 +1,6 @@
 ﻿
 @model ExpenseEditViewModel;
 
-@{
-
-    var CategoryOptions = Enum.GetValues(typeof(ExpenseApp.Domain.Category));
-
-}
-
 
     <form asp-controller="Expense" asp--action="Edit" method="post">
 
