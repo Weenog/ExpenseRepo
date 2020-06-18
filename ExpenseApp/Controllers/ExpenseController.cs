@@ -50,7 +50,6 @@ namespace ExpenseApp.Controllers
         }
 
         [HttpGet]
-        [HttpGet]
 
         public async Task<IActionResult> Create()
         {

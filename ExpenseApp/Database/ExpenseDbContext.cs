@@ -62,7 +62,15 @@ namespace ExpenseApp.Database
                 {
                     Id = 7,
                     Name = "Utility"
-                }
+                },
+
+                 new Category()
+                 {
+                     Id = 8,
+                     Name = "Secret"
+                 }
+
+
                 );
         }
 
