@@ -26,21 +26,20 @@ namespace ExpenseApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> IndexAsync(int id)
+        public async Task<IActionResult> Index()
         {
 
             List<ExpenseListViewModel> XpList = new List<ExpenseListViewModel>();
-
-
-            IEnumerable<Expense> expenses = await _dbContext.Expenses.ToListAsync();
+            IEnumerable<Expense> expenses = await _dbContext.Expenses.Include(x =>x.Category).ToListAsync();
             IEnumerable<Expense> sortedExpenses = expenses.OrderBy(x => x.Date);
             var expense = new ExpenseEditViewModel();
+
             foreach (var thing in sortedExpenses)
             {
                 ExpenseListViewModel Xp = new ExpenseListViewModel()
                 {
                     Id = thing.Id,
-                    Category = thing.Category,
+                    Category = thing.Category.Name,
                     Description = (string)thing.Description,
                     Date = (DateTime)thing.Date,
                     Amount = (decimal)thing.Amount,
@@ -55,10 +54,22 @@ namespace ExpenseApp.Controllers
 
 
         [HttpGet]
+        [HttpGet]
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            ExpenseCreateViewModel vm = new ExpenseCreateViewModel();
+            vm.Date = DateTime.Now;
+            var categories = await _dbContext.Categories.ToListAsync();
+            foreach (Category category in categories)
+            {
+                vm.Category.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
+                {
+                    Value = category.Id.ToString(),
+                    Text = category.Name
+                });
+            }
+            return View(vm);
         }
 
         [ValidateAntiForgeryToken]
@@ -74,6 +85,7 @@ namespace ExpenseApp.Controllers
                 Date = cvm.Date,
                 PhotoUrl= cvm.PhotoUrl
             };
+            newExpense.Category = await _dbContext.Categories.FirstOrDefaultAsync(x => x.Id == newExpense.CategoryId);
             if (String.IsNullOrEmpty(newExpense.PhotoUrl))
             {
                 _photoService.AssignPicToExpense(newExpense);
