@@ -47,8 +47,6 @@ namespace ExpenseApp.Services
         public void AssignPicToExpense(Expense expense)
         {
             string pathToPicture = expense.Category.Name.ToLower() + ".png";
-          
-
             expense.PhotoUrl = "/expense-pics/" + pathToPicture;
         }
     }

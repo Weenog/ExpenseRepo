@@ -18,7 +18,6 @@ namespace ExpenseApp.Controllers
         private readonly ExpenseDbContext _dbContext;
         private readonly IPhotoService _photoService;
 
-
         public ExpenseController(IPhotoService photoService, ExpenseDbContext dbContext)
         {
             _photoService = photoService;
@@ -49,8 +48,6 @@ namespace ExpenseApp.Controllers
             }
             return View(XpList);
         }
-
-
 
         [HttpGet]
         [HttpGet]

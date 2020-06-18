@@ -18,8 +18,6 @@ namespace ExpenseApp.Database
 
         }
 
-        //        public DbSet<Expense> Expenses { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -66,9 +64,7 @@ namespace ExpenseApp.Database
                     Name = "UtilityBill"
                 }
                 );
-
         }
-
 
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<Category> Categories { get; set; }
