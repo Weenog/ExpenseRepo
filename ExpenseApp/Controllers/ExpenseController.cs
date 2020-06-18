@@ -47,7 +47,6 @@ namespace ExpenseApp.Controllers
                 };
                 XpList.Add(Xp);
             }
-
             return View(XpList);
         }
 

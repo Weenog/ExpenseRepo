@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 
 
 namespace ExpenseApp.Database
-
 {
-
     public class ExpenseDbContext : DbContext
     {
         public ExpenseDbContext(DbContextOptions<ExpenseDbContext> options)
@@ -67,7 +65,6 @@ namespace ExpenseApp.Database
                     Id = 7,
                     Name = "UtilityBill"
                 }
-
                 );
 
         }

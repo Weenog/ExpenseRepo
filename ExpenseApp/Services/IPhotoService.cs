@@ -16,13 +16,3 @@ namespace ExpenseApp.Services
     }
 }
 
-//namespace ExpenseApp.Services
-//{
-//    public interface IPhotoService
-//    {
-//        string UploadPicture(IFormFile photo);
-//        void DeletePicture(string url);
-//        void AssignPicToExpense(Expense expense);
-
-//    }
-//}
