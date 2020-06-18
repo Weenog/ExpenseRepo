@@ -112,7 +112,6 @@ namespace ExpenseApp.Controllers
                 {
 
                     Value = category.Id.ToString(),
-
                     Text = category.Name
 
                 });
