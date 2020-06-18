@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ExpenseApp.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace ExpenseApp.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IConfiguration _configuration;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            _configuration = configuration;
         }
 
         public IActionResult Index()
@@ -32,6 +35,20 @@ namespace ExpenseApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult Developer()
+        {
+
+            DeveloperDetailViewModel vm = new DeveloperDetailViewModel()
+            {
+
+                FirstName = _configuration["Developer:FirstName"],
+
+                LastName = _configuration["Developer:LastName"]
+
+            };
+
+            return View(vm);
         }
     }
 }

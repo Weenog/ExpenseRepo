@@ -69,7 +69,7 @@ namespace ExpenseApp.Controllers
             Expense newExpense = new Expense()
             {
                 Amount = cvm.Amount,
-                Category = cvm.Category,
+                CategoryId = cvm.CategoryId,
                 Description = cvm.Description,
                 Date = cvm.Date,
                 PhotoUrl= cvm.PhotoUrl
