@@ -61,7 +61,7 @@ namespace ExpenseApp.Database
                 new Category()
                 {
                     Id = 7,
-                    Name = "UtilityBill"
+                    Name = "Utility"
                 }
                 );
         }

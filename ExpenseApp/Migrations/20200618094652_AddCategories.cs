@@ -40,7 +40,7 @@ namespace ExpenseApp.Migrations
                     { 4, "Gift" },
                     { 5, "Hobbies" },
                     { 6, "Holiday" },
-                    { 7, "UtilityBill" }
+                    { 7, "Utility" }
                 });
 
             migrationBuilder.CreateIndex(

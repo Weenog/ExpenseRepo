@@ -70,7 +70,7 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
-/* ribbon
+/* 
 -------------------------------------------------- */
 
 .ribbon {
@@ -101,7 +101,7 @@ body {
 
         font-weight: bold;
 
-        color: #FFF;
+        color: #FFFFFF;
 
         text-transform: uppercase;
 
@@ -117,7 +117,7 @@ body {
 
         display: block;
 
-        background: #79A70A;
+        background: #888888;
 
         background: linear-gradient(#2989d8 0%, #1e5799 100%);
 
