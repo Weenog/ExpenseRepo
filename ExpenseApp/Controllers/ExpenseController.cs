@@ -92,7 +92,7 @@ namespace ExpenseApp.Controllers
             return RedirectToAction("Index");
         }
 
-        [ValidateAntiForgeryToken]
+        
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -130,11 +130,14 @@ namespace ExpenseApp.Controllers
         {
 
             Expense changedExpense = await _dbContext.Expenses.Include(x => x.Category).FirstOrDefaultAsync(x => x.Id == id);
+
             changedExpense.Amount = vm.Amount;
             changedExpense.CategoryId = vm.CategoryId;
             changedExpense.Description = vm.Description;
             changedExpense.Date = vm.Date;
 
+            var expense = _dbContext.Expenses.SingleOrDefault(a => a.Id == id);
+            _dbContext.Remove(expense);
             _dbContext.Expenses.Update(changedExpense);
             await _dbContext.SaveChangesAsync();
             return (RedirectToAction("Index"));
