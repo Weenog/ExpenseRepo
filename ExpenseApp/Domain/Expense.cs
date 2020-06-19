@@ -14,7 +14,10 @@ namespace ExpenseApp.Domain
         public string Description { get; set; }
         public DateTime Date { get; set; }
         public int CategoryId { get; set; }
-        public Category Category {get; set;}
+        public Category Category { get; set; }
         public string PhotoUrl { get; set; }
+        //public ExpenseAppIdentity expenseAppIdentiy { get; set; }
+        //public string ExpenseAppUserIdentityId { get; set; }
     }
 }
+
