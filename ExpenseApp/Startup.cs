@@ -34,7 +34,7 @@ namespace ExpenseApp
             services.AddTransient<IPhotoService, PhotoService>();
             services.AddDbContext<ExpenseDbContext>(Options => 
             Options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ExpenseDatabase;Trusted_Connection=True;"));
-            services.AddDefaultIdentity<ExpenseAppIdentity>().AddEntityFrameworkStores<ExpenseDbContext>();
+            services.AddDefaultIdentity<ExpenseUser>().AddEntityFrameworkStores<ExpenseDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -16,8 +16,8 @@ namespace ExpenseApp.Domain
         public int CategoryId { get; set; }
         public Category Category { get; set; }
         public string PhotoUrl { get; set; }
-        //public ExpenseAppIdentity expenseAppIdentiy { get; set; }
-        //public string ExpenseAppUserIdentityId { get; set; }
+        public ExpenseUser ExpenseUser { get; set; }
+        public string ExpenseUserId { get; set; }
     }
 }
 

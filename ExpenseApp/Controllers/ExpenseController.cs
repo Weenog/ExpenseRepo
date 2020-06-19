@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ExpenseApp.Database;
 using ExpenseApp.Domain;
@@ -30,7 +31,9 @@ namespace ExpenseApp.Controllers
         {
 
             List<ExpenseListViewModel> XpList = new List<ExpenseListViewModel>();
-            IEnumerable<Expense> expenses = await _dbContext.Expenses.Include(x =>x.Category).ToListAsync();
+            IEnumerable<Expense> expenses = await _dbContext.Expenses
+                .Include(x =>x.Category).Where(expense => expense.ExpenseUserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).ToListAsync();
+            
             IEnumerable<Expense> sortedExpenses = expenses.OrderBy(x => x.Date);
             var expense = new ExpenseEditViewModel();
 
@@ -79,7 +82,8 @@ namespace ExpenseApp.Controllers
                 CategoryId = cvm.CategoryId,
                 Description = cvm.Description,
                 Date = cvm.Date,
-                PhotoUrl= cvm.PhotoUrl
+                PhotoUrl= cvm.PhotoUrl,
+                ExpenseUserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
             };
             newExpense.Category = await _dbContext.Categories.FirstOrDefaultAsync(x => x.Id == newExpense.CategoryId);
             if (String.IsNullOrEmpty(newExpense.PhotoUrl))

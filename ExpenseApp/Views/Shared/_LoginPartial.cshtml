@@ -1,8 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using ExpenseApp.Domain
 
-@inject SignInManager<ExpenseAppIdentity> SignInManager
-@inject UserManager<ExpenseAppIdentity> UserManager
+@inject SignInManager<ExpenseUser> SignInManager
+@inject UserManager<ExpenseUser> UserManager
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))

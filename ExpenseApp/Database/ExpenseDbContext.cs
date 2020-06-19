@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ExpenseApp.Database
 {
-    public class ExpenseDbContext : IdentityDbContext<ExpenseAppIdentity>
+    public class ExpenseDbContext : IdentityDbContext<ExpenseUser>
     {
         public ExpenseDbContext(DbContextOptions<ExpenseDbContext> options)
         : base(options)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExpenseApp.Domain
 {
-    public class ExpenseAppIdentity : IdentityUser
+    public class ExpenseUser : IdentityUser
 
     {
 
