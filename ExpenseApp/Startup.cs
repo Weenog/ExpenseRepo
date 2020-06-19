@@ -28,8 +28,12 @@ namespace ExpenseApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<ExpenseDbContext>(Options => Options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ExpenseDatabase;Trusted_Connection=True;"));
+            services.AddRazorPages();
+
             services.AddTransient<IPhotoService, PhotoService>();
+            services.AddDbContext<ExpenseDbContext>(Options => 
+            Options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ExpenseDatabase;Trusted_Connection=True;"));
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +54,7 @@ namespace ExpenseApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

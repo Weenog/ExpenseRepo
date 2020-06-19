@@ -6,6 +6,7 @@ using ExpenseApp.Database;
 using ExpenseApp.Domain;
 using ExpenseApp.Models;
 using ExpenseApp.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
@@ -50,7 +51,7 @@ namespace ExpenseApp.Controllers
         }
 
         [HttpGet]
-
+        //[Authorize]
         public async Task<IActionResult> Create()
         {
             ExpenseCreateViewModel vm = new ExpenseCreateViewModel();
@@ -69,8 +70,8 @@ namespace ExpenseApp.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-
-        public  async Task<IActionResult> Create(ExpenseCreateViewModel cvm)
+        //[Authorize]
+        public async Task<IActionResult> Create(ExpenseCreateViewModel cvm)
         {
             Expense newExpense = new Expense()
             {
@@ -91,7 +92,7 @@ namespace ExpenseApp.Controllers
             return RedirectToAction("Index");
         }
 
-        
+        //[Authorize]
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -121,9 +122,10 @@ namespace ExpenseApp.Controllers
             return View(evm);
 
         }
-
+        //[Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost]
+       
 
         public async Task<IActionResult> Edit(int id, ExpenseEditViewModel vm)
         {
@@ -141,8 +143,8 @@ namespace ExpenseApp.Controllers
             await _dbContext.SaveChangesAsync();
             return (RedirectToAction("Index"));
         }
-
-            [HttpGet]
+        //[Authorize]
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             Expense expenseToDelete = await _dbContext.Expenses.FindAsync(id);
@@ -156,6 +158,7 @@ namespace ExpenseApp.Controllers
 
             return View(dvm);
         }
+        //[Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> ConfirmDelete(int id)
