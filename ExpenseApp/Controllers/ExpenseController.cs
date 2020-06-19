@@ -51,7 +51,7 @@ namespace ExpenseApp.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> Create()
         {
             ExpenseCreateViewModel vm = new ExpenseCreateViewModel();
@@ -70,7 +70,7 @@ namespace ExpenseApp.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> Create(ExpenseCreateViewModel cvm)
         {
             Expense newExpense = new Expense()
@@ -92,7 +92,7 @@ namespace ExpenseApp.Controllers
             return RedirectToAction("Index");
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -122,7 +122,7 @@ namespace ExpenseApp.Controllers
             return View(evm);
 
         }
-        //[Authorize]
+        [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost]
        
@@ -143,7 +143,7 @@ namespace ExpenseApp.Controllers
             await _dbContext.SaveChangesAsync();
             return (RedirectToAction("Index"));
         }
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
@@ -158,7 +158,7 @@ namespace ExpenseApp.Controllers
 
             return View(dvm);
         }
-        //[Authorize]
+        [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> ConfirmDelete(int id)

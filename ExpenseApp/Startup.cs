@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ExpenseApp.Database;
+using ExpenseApp.Domain;
 using ExpenseApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,7 +34,7 @@ namespace ExpenseApp
             services.AddTransient<IPhotoService, PhotoService>();
             services.AddDbContext<ExpenseDbContext>(Options => 
             Options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ExpenseDatabase;Trusted_Connection=True;"));
-           
+            services.AddDefaultIdentity<ExpenseAppIdentity>().AddEntityFrameworkStores<ExpenseDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +63,8 @@ namespace ExpenseApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapRazorPages();
             });
         }
     }
